@@ -3,7 +3,6 @@ import {
   Country,
   TranslationLanguageCode,
   TranslationLanguageCodeMap,
-  FlagType,
   CountryCodeList,
   Region,
   Subregion,
@@ -24,32 +23,18 @@ const localData: DataCountry = {
   imageCountries: undefined,
 }
 
-export const loadDataAsync = ((data: DataCountry) => (
-  dataType: FlagType = FlagType.EMOJI,
-): Promise<CountryMap> => {
+export const loadDataAsync = ((data: DataCountry) => (): Promise<CountryMap> => {
   return new Promise((resolve, reject) => {
-    switch (dataType) {
-      case FlagType.FLAT:
-        if (!data.imageCountries) {
-          fetch(imageJsonUrl)
-            .then((response: Response) => response.json())
-            .then((remoteData: any) => {
-              data.imageCountries = remoteData
-              resolve(data.imageCountries)
-            })
-            .catch(reject)
-        } else {
+    if (!data.imageCountries) {
+      fetch(imageJsonUrl)
+        .then((response: Response) => response.json())
+        .then((remoteData: any) => {
+          data.imageCountries = remoteData
           resolve(data.imageCountries)
-        }
-        break
-      default:
-        if (!data.emojiCountries) {
-          data.emojiCountries = require('./assets/data/countries-emoji.json')
-          resolve(data.emojiCountries)
-        } else {
-          resolve(data.emojiCountries)
-        }
-        break
+        })
+        .catch(reject)
+    } else {
+      resolve(data.imageCountries)
     }
   })
 })(localData)
@@ -63,7 +48,7 @@ export const getEmojiFlagAsync = async (countryCode: CountryCode = 'FR') => {
 }
 
 export const getImageFlagAsync = async (countryCode: CountryCode = 'FR') => {
-  const countries = await loadDataAsync(FlagType.FLAT)
+  const countries = await loadDataAsync()
   if (!countries) {
     throw new Error('Unable to find image because imageCountries is undefined')
   }
@@ -121,7 +106,6 @@ const isExcluded = (excludeCountries?: CountryCode[]) => (country: Country) =>
     : true
 
 export const getCountriesAsync = async (
-  flagType: FlagType,
   translation: TranslationLanguageCode = 'common',
   region?: Region,
   subregion?: Subregion,
@@ -130,7 +114,7 @@ export const getCountriesAsync = async (
   preferredCountries?: CountryCode[],
   withAlphaFilter?: boolean
 ): Promise<Country[]> => {
-  const countriesRaw = await loadDataAsync(flagType)
+  const countriesRaw = await loadDataAsync()
   if (!countriesRaw) {
     return []
   }
@@ -154,7 +138,7 @@ export const getCountriesAsync = async (
     .filter(isSubregion(subregion))
     .filter(isIncluded(countryCodes))
     .filter(isExcluded(excludeCountries))
-    
+
     return countries
 
   } else {

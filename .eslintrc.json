@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "extends": "@react-native-community",
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-underscore-dangle":  ["warn", { "allow": ["_wrapperClass", "_contentClass"] }],
+    "template-curly-spacing": ["warn", "never"],
+    "indent": ["warn", 2, {"ignoredNodes": ["TemplateLiteral"]}],
+    "quotes": ["warn", "double"],
+    "no-unused-vars": "warn",
+    "import/no-useless-path-segments": "off",
+    "import/no-unresolved": "off",
+    "import/no-extraneous-dependencies": "off",
+    "max-len": [ 1, 120, 2, {
+      "ignoreUrls": true,
+      "ignoreComments": false
+    }]
+  }
+}

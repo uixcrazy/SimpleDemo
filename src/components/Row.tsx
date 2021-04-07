@@ -1,12 +1,12 @@
-import * as React from 'react'
-import { ViewProps, StyleSheet, View } from 'react-native'
+import * as React from "react";
+import { ViewProps, StyleSheet, View } from "react-native";
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  }
-})
+    flexDirection: "row",
+    alignItems: "center",
+  },
+});
 
 export const Row = (
   props: ViewProps & { children?: React.ReactNode; fullWidth?: boolean }
@@ -17,11 +17,11 @@ export const Row = (
       styles.row,
       props.style,
       props.fullWidth && {
-        width: '100%',
-        justifyContent: 'space-between',
+        width: "100%",
+        justifyContent: "space-between",
         padding: 10,
-        paddingHorizontal: 50
-      }
+        paddingHorizontal: 50,
+      },
     ]}
   />
-)
+);

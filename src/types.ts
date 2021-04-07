@@ -325,11 +325,6 @@ export const TranslationLanguageCodeList = [
 ] as const
 export type TranslationLanguageCode = typeof TranslationLanguageCodeList[number]
 
-export enum FlagType {
-  FLAT = 'flat',
-  EMOJI = 'emoji'
-}
-
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 // type guards
