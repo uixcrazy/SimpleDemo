@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { TranslationLanguageCode } from './types'
+import * as React from "react";
+import { TranslationLanguageCode } from "./types";
 import {
   getEmojiFlagAsync,
   getImageFlagAsync,
@@ -10,7 +10,7 @@ import {
   getCountryCurrencyAsync,
   getCountryInfoAsync,
   search,
-} from './CountryService'
+} from "./CountryService";
 
 export interface CountryContextParam {
   translation?: TranslationLanguageCode
@@ -25,7 +25,7 @@ export interface CountryContextParam {
   getCountryInfoAsync: typeof getCountryInfoAsync
 }
 export const DEFAULT_COUNTRY_CONTEXT = {
-  translation: 'common' as TranslationLanguageCode,
+  translation: "common" as TranslationLanguageCode,
   getCountryNameAsync,
   getImageFlagAsync,
   getEmojiFlagAsync,
@@ -35,14 +35,14 @@ export const DEFAULT_COUNTRY_CONTEXT = {
   search,
   getLetters,
   getCountryInfoAsync,
-}
+};
 export const CountryContext = React.createContext<CountryContextParam>(
   DEFAULT_COUNTRY_CONTEXT,
-)
+);
 
-export const useContext = () => React.useContext(CountryContext)
+export const useContext = () => React.useContext(CountryContext);
 
 export const {
   Provider: CountryProvider,
   Consumer: CountryConsumer,
-} = CountryContext
+} = CountryContext;

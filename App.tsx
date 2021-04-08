@@ -1,93 +1,70 @@
-import { StatusBar } from "expo-status-bar";
-import React, { ReactNode, useState, useEffect } from "react";
-import { StyleSheet, SafeAreaView, View, FlatListProps } from "react-native";
-import { Country, CountryCode, Region, Subregion } from "./src/types";
-import { CountryList } from "./src/components/CountryList";
-import { useContext } from "./src/CountryContext";
-
-interface Props {
-  allowFontScaling?: boolean;
-  countryCode?: CountryCode;
-  region?: Region;
-  subregion?: Subregion;
-  countryCodes?: CountryCode[];
-  excludeCountries?: CountryCode[];
-  preferredCountries?: CountryCode[];
-  flatListProps?: FlatListProps<Country>;
-  withFlag?: boolean;
-  disableNativeModal?: boolean;
-  visible?: boolean;
-  onSelect(country: Country): void;
-  onOpen?(): void;
-  onClose?(): void;
-}
-
-export default function App(props: Props) {
-  const { translation, getCountriesAsync } = useContext();
-
-  const {
-    allowFontScaling,
-    countryCode,
-    region,
-    subregion,
-    countryCodes,
-    // filterProps,
-    // modalProps,
-    flatListProps,
-    onSelect,
-    onClose: handleClose,
-    onOpen: handleOpen,
-    excludeCountries,
-    preferredCountries,
-  } = props;
-
-  const [state, setState] = useState<{ countries: Country[] }>({
-    countries: [],
-  });
-
-  const onSelectClose = (country: Country) => {
-    console.log(country);
-  };
-
-  const setCountries = (countries: Country[]) =>
-    setState({ ...state, countries });
-
-  useEffect(() => {
-    getCountriesAsync(
-      translation,
-      region,
-      subregion,
-      countryCodes,
-      excludeCountries,
-      preferredCountries
-    )
-      .then(setCountries)
-      .catch(console.warn);
-  }, [translation]);
-
-  return (
-    <SafeAreaView style={styles.container}>
-      {/* <Text>Open up App.tsx to start working on your app!</Text> */}
-      <StatusBar style="auto" />
-
-      <CountryList
-        {...{
-          onSelect: onSelectClose,
-          data: state.countries,
-          letters: [],
-          // withFlag,
-          flatListProps,
-        }}
-      />
-    </SafeAreaView>
-  );
-}
+import "react-native-gesture-handler";
+import React from "react";
+import { StyleSheet, Button, Text, View } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import NotFound from "./src/Screens/NotFound";
+import CountriesScreen from "./src/Screens/CountriesScreen";
+import HomeScreen from "./src/Screens/HomeScreen";
+import LanguageScreen from "./src/Screens/LanguageScreen";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "lime",
     alignItems: "center",
     justifyContent: "center",
+    flexDirection: "column",
+  },
+  header: {
+    width: "100%",
+    height: 80,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+  },
+  headerText: {
+    fontSize: 18,
   },
 });
+
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>LIST COUNTRIES</Text>
+      </View>
+
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen
+          name="NotFound"
+          component={NotFound}
+          options={{ title: "Oops!" }}
+        />
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Countries"
+          component={CountriesScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Language"
+          component={LanguageScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}

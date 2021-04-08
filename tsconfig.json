@@ -1,13 +1,15 @@
 {
   "include": ["src", "./typings.d.ts"],
   "compilerOptions": {
+    "baseUrl": "./",
+    "allowJs": true,
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
     "removeComments": true,
-    "jsx": "react",
+    "jsx": "preserve",
     "target": "es2019",
-    "module": "es6",
+    "module": "esnext",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,

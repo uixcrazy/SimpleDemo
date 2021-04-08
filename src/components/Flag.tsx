@@ -6,7 +6,6 @@ import {
   Image,
   StyleSheet,
   PixelRatio,
-  Text,
   View,
   ActivityIndicator,
 } from "react-native";
@@ -15,8 +14,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "center",
     alignItems: "center",
-    width: 44,
-    marginRight: 10,
+    width: 70,
+    paddingVertical: 10,
   },
   imageFlag: {
     resizeMode: "contain",
@@ -24,6 +23,7 @@ const styles = StyleSheet.create({
     height: 38,
     borderWidth: 1 / PixelRatio.get(),
     opacity: 0.8,
+    borderColor: "transparent",
   },
 });
 
@@ -40,7 +40,7 @@ const ImageFlag = memo(({ countryCode }: FlagType) => {
   return (
     <Image
       resizeMode={"contain"}
-      style={[styles.imageFlag, { borderColor: "transparent" }]}
+      style={styles.imageFlag}
       source={{ uri: asyncResult.result }}
     />
   );
