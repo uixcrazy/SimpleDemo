@@ -37,6 +37,7 @@ export default StyleSheet.create({
     textDecorationLine: "underline",
   },
   countriesList: {
+    flex: 1,
     alignItems: "flex-end",
   },
 });
