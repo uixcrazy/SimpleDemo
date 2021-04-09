@@ -21,3 +21,11 @@ yarn web
 ```
 react-devtools
 ```
+
+## APIs
+
+All countries: https://restcountries.eu/rest/v2/all
+
+Language: https://restcountries.eu/rest/v2/lang/fr
+
+Country: https://restcountries.eu/rest/v2/name/jersey

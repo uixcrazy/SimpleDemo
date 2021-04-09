@@ -1,13 +1,10 @@
-import React, { memo } from "react";
-import { useAsync } from "react-async-hook";
-import { CountryCode } from "../types";
-import { useContext } from "../CountryContext";
+import React from "react";
+import flagCountries from "../../data/countries.json";
 import {
   Image,
   StyleSheet,
   PixelRatio,
   View,
-  ActivityIndicator,
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -27,27 +24,14 @@ const styles = StyleSheet.create({
   },
 });
 
-type FlagType = {
-  countryCode: CountryCode;
-};
-
-const ImageFlag = memo(({ countryCode }: FlagType) => {
-  const { getImageFlagAsync } = useContext();
-  const asyncResult = useAsync(getImageFlagAsync, [countryCode]);
-  if (asyncResult.loading) {
-    return <ActivityIndicator size={"small"} />;
-  }
+export const Flag = ({ countryCode }: { countryCode: string }) => {
   return (
-    <Image
-      resizeMode={"contain"}
-      style={styles.imageFlag}
-      source={{ uri: asyncResult.result }}
-    />
+    <View style={styles.container}>
+      <Image
+        resizeMode={"contain"}
+        style={styles.imageFlag}
+        source={{ uri: flagCountries[countryCode].flag }}
+      />
+    </View>
   );
-});
-
-export const Flag = ({ countryCode }: FlagType) => (
-  <View style={styles.container}>
-    <ImageFlag {...{ countryCode }} />
-  </View>
-);
+};

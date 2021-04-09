@@ -6,11 +6,12 @@ import {
   ListRenderItemInfo,
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
-import { useContext } from "../CountryContext";
+import { Header } from "react-native-elements";
+
 import { Country, CountryItemProps, SimpleStackParams } from "../types";
+import getCountriesAsync from "../service/countries";
 import { DEFAULT_THEME } from "../styles/theme";
 import styles, { borderBottomWidth, heightDimensions } from "./CountriesScreen.styles";
-
 import { Flag } from "../components/Flag";
 import { CountryText } from "../components/CountryText";
 
@@ -20,13 +21,13 @@ const CountryItem = (props: CountryItemProps) => {
   const extraContent: string[] = [];
   return (
     <TouchableOpacity
-      key={country.cca2}
-      testID={`country-selector-${country.cca2}`}
+      key={country.alpha2Code}
+      testID={`country-selector-${country.alpha2Code}`}
       onPress={() => onSelect(country)}
       {...{ activeOpacity }}
     >
       <View style={styles.itemCountry}>
-        <Flag {...{ countryCode: country.cca2, flagSize: flagSize! }} />
+        <Flag {...{ countryCode: country.alpha2Code, flagSize: flagSize! }} />
         <View style={styles.itemCountryName}>
           <CountryText numberOfLines={2} ellipsizeMode="tail">
             {country.name}
@@ -47,7 +48,6 @@ const renderItem = (props: Omit<CountryItemProps, "country">) => ({
 );
 
 export default function CountriesScreen({ navigation }: StackScreenProps<SimpleStackParams, "Countries">) {
-  const { translation, getCountriesAsync } = useContext();
   const flatListRef = useRef<FlatList<Country>>(null);
 
   const [state, setState] = useState<{ countries: Country[] }>({
@@ -58,20 +58,32 @@ export default function CountriesScreen({ navigation }: StackScreenProps<SimpleS
     setState({ ...state, countries });
 
   useEffect(() => {
-    getCountriesAsync(
-      translation,
-    )
+    getCountriesAsync()
       .then(setCountries)
       .catch(console.warn);
-  }, [translation]);
+  }, []);
 
 
   const onSelect = (country: Country) => {
-    navigation.navigate("CountryDetails");
+    console.log(country);
+    navigation.navigate("CountryDetails", { id: "df" });
   };
 
   return (
     <View style={styles.container}>
+      <Header
+        backgroundColor="#006c7f"
+        backgroundImageStyle={{}}
+        barStyle="light-content"
+        centerComponent={{
+          text: "LIST OF COUNTRIES",
+          style: { color: "#fff", fontSize: 18 },
+        }}
+        containerStyle={{ width: "100%" }}
+        placement="center"
+        rightContainerStyle={{}}
+        statusBarProps={{}}
+      />
       <FlatList
         data={state.countries}
         renderItem={renderItem({
