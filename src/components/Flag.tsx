@@ -1,10 +1,12 @@
 import React from "react";
 import flagCountries from "../../data/countries.json";
 import {
+  View,
   Image,
+  StyleProp,
+  ImageStyle,
   StyleSheet,
   PixelRatio,
-  View,
 } from "react-native";
 
 const styles = StyleSheet.create({
@@ -24,12 +26,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Flag = ({ countryCode }: { countryCode: string }) => {
+type Props = {
+  countryCode: string,
+  stylesFlag?: StyleProp<ImageStyle>,
+}
+
+export default ({ countryCode, stylesFlag }: Props) => {
   return (
     <View style={styles.container}>
       <Image
         resizeMode={"contain"}
-        style={styles.imageFlag}
+        style={[styles.imageFlag, stylesFlag]}
         source={{ uri: flagCountries[countryCode].flag }}
       />
     </View>

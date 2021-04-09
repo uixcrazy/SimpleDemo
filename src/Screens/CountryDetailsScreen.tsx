@@ -1,22 +1,55 @@
 import React from "react";
 import {
   View,
-  Button,
+  Text,
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
+import { Link, StackActions } from "@react-navigation/native";
+
 import { SimpleStackParams } from "../types";
 import styles from "./CountryDetailsScreen.styles.js";
 
-export default function CountryDetailsScreen({
-  route,
-  navigation,
-}: StackScreenProps<SimpleStackParams, "CountryDetails">) {
-  const { id } = route.params;
+import Flag from "../components/Flag";
 
-  console.log(id);
+export default function CountryDetailsScreen({ route }: StackScreenProps<SimpleStackParams, "CountryDetails">) {
+  const { country } = route.params;
+
   return (
     <View style={styles.container}>
-      <Button title="Go back" onPress={() => navigation.goBack()} />
+      <Flag
+        countryCode={country.alpha2Code}
+        stylesFlag={styles.flag}
+      />
+      <Text style={styles.title}>{country.name}</Text>
+      <View style={styles.row}>
+        <Text>alpha2Code</Text>
+        <Text>{country.alpha2Code}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text>callingCodes</Text>
+        <Text>{country.callingCodes.map((c: string) => `+${c}`).join(",")}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text>population</Text>
+        <Text>{country.population}</Text>
+      </View>
+      <View style={styles.row}>
+        <Text>languages</Text>
+        <View>
+          {country.languages.map((l: { name: string, "iso639_1": string }) => (
+            <Link
+              to={`/link-component/${l.iso639_1}`} key={l.name}
+              action={StackActions.replace("Language", {
+                id: l.iso639_1,
+                name: l.name,
+              })}
+              style={styles.link}
+            >
+              {l.name}
+            </Link>
+          ))}
+        </View>
+      </View>
     </View>
   );
 }

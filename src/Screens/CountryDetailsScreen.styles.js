@@ -3,7 +3,6 @@ import {
   PixelRatio,
   Dimensions,
 } from "react-native";
-import { DEFAULT_THEME } from "../styles/theme";
 
 export const borderBottomWidth = 2 / PixelRatio.get();
 export const heightDimensions = Dimensions.get("window").height;
@@ -12,18 +11,32 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     backgroundColor: "#fff",
   },
-  itemCountry: {
+  flag: {
+    width: 150,
+    height: 100,
+    marginVertical: 20,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    marginVertical: 20,
+  },
+  row: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    paddingHorizontal: 5,
-    height: DEFAULT_THEME.itemHeight,
+    justifyContent: "space-between",
+    paddingHorizontal: 20,
+    marginVertical: 10,
   },
-  itemCountryName: {
-    width: "90%",
+  link: {
+    marginVertical: 12,
+    color: "blue",
+    textDecorationLine: "underline",
+  },
+  countriesList: {
+    alignItems: "flex-end",
   },
 });

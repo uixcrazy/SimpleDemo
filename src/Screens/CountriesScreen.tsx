@@ -12,11 +12,11 @@ import { Country, CountryItemProps, SimpleStackParams } from "../types";
 import getCountriesAsync from "../service/countries";
 import { DEFAULT_THEME } from "../styles/theme";
 import styles, { borderBottomWidth, heightDimensions } from "./CountriesScreen.styles";
-import { Flag } from "../components/Flag";
+import Flag from "../components/Flag";
 import { CountryText } from "../components/CountryText";
 
 const CountryItem = (props: CountryItemProps) => {
-  const { activeOpacity, flagSize } = DEFAULT_THEME;
+  const { activeOpacity } = DEFAULT_THEME;
   const { country, onSelect } = props;
   const extraContent: string[] = [];
   return (
@@ -27,7 +27,7 @@ const CountryItem = (props: CountryItemProps) => {
       {...{ activeOpacity }}
     >
       <View style={styles.itemCountry}>
-        <Flag {...{ countryCode: country.alpha2Code, flagSize: flagSize! }} />
+        <Flag {...{ countryCode: country.alpha2Code }} />
         <View style={styles.itemCountryName}>
           <CountryText numberOfLines={2} ellipsizeMode="tail">
             {country.name}
@@ -65,8 +65,7 @@ export default function CountriesScreen({ navigation }: StackScreenProps<SimpleS
 
 
   const onSelect = (country: Country) => {
-    console.log(country);
-    navigation.navigate("CountryDetails", { id: "df" });
+    navigation.navigate("CountryDetails", { country });
   };
 
   return (

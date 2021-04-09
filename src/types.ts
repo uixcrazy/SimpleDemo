@@ -3,7 +3,7 @@ export type Country = {
   alpha2Code: string,
   languages: [],
   flag: string,
-  callingCodes: [],
+  callingCodes: string[],
 }
 
 export type CountryItemProps = {
@@ -12,10 +12,8 @@ export type CountryItemProps = {
 }
 
 export type SimpleStackParams = {
-  // Article: { author: string } | undefined;
-  // NewsFeed: { date: number };
   NotFound: undefined,
   Countries: undefined,
-  CountryDetails: { id: string },
-  Language: undefined,
+  CountryDetails: { country: any },
+  Language: { id: string, name: string },
 };

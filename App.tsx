@@ -30,14 +30,15 @@ export default function App() {
           name="CountryDetails"
           component={CountryDetailsScreen}
           options={{
-            // headerShown: false,
+            title: "",
           }}
         />
         <Stack.Screen
           name="Language"
           component={LanguageScreen}
           options={{
-            headerShown: false,
+            title: "",
+            // headerShown: false,
           }}
         />
       </Stack.Navigator>

@@ -15,7 +15,7 @@ export const loadDataAsync = ((data?: Country[]) => (): Promise<Country[] | unde
   });
 })();
 
-export default async (): Promise<Country[]> => {
+export default async () => {
   const countriesRaw = await loadDataAsync();
   if (!countriesRaw) {
     return [];
