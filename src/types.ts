@@ -269,6 +269,12 @@ export interface Country {
   name: TranslationLanguageCodeMap | string;
   cca2: CountryCode;
 }
+
+export type CountryItemProps = {
+  country: Country,
+  onSelect(country: Country): void,
+}
+
 export const RegionList = [
   "Africa",
   "Americas",
@@ -335,8 +341,8 @@ export function isCountryCode(str: string): str is CountryCode {
 export type SimpleStackParams = {
   // Article: { author: string } | undefined;
   // NewsFeed: { date: number };
-  Home: undefined;
+  NotFound: undefined;
   Countries: undefined;
+  CountryDetails: undefined;
   Language: undefined;
-  Details: undefined;
 };

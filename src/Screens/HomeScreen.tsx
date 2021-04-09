@@ -8,9 +8,7 @@ import {
   PixelRatio,
   Dimensions,
 } from "react-native";
-import {
-  StackScreenProps,
-} from "@react-navigation/stack";
+import { StackScreenProps } from "@react-navigation/stack";
 import { useContext } from "../CountryContext";
 import { Country, SimpleStackParams } from "../types";
 import { DEFAULT_THEME } from "../styles/theme";
@@ -80,7 +78,7 @@ const renderItem = (props: Omit<CountryItemProps, "country">) => ({
 export default function HomeScreen({
   // route,
   navigation,
-}: StackScreenProps<SimpleStackParams, "Home">) {
+}: StackScreenProps<SimpleStackParams, "Countries">) {
   const { translation, getCountriesAsync } = useContext();
   const flatListRef = useRef<FlatList<Country>>(null);
 

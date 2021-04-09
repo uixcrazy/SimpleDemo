@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import type { StackScreenProps } from "@react-navigation/stack";
+import { SimpleStackParams } from "../types";
 
 const styles = StyleSheet.create({
   title: {
@@ -20,13 +21,13 @@ const styles = StyleSheet.create({
 export default function NotFoundScreen({
   route,
   navigation,
-}: StackScreenProps<{ Home: undefined }>) {
+}: StackScreenProps<SimpleStackParams, "NotFound">) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>404 Not Found ({route.name})</Text>
       <Button
         title="Go to home"
-        onPress={() => navigation.navigate("Home")}
+        onPress={() => navigation.navigate("Countries")}
       />
     </View>
   );
